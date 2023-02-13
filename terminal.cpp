@@ -63,7 +63,7 @@ char Terminal::read_char()
 {
   char c;
   //don't use std::in, it does some high level logic that is not compatible with our termios settings
-  read(STDIN_FILENO, &c, 1);
+  int result = read(STDIN_FILENO, &c, 1);
   return c;
 }
 
