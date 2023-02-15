@@ -1,63 +1,70 @@
 #include "game.h"
 #include "terminal.h"
 
-void Game::run()
-{
+void Game::run() // runs a game loop in a terminal-based environment
+{	
     auto& term = Terminal::instance();
-    term.show_cursor(false);
+    term.show_cursor(false);// hides the terminal cursos 
     bool run = true;
-    while(run)
+    bool titlescreen=true;
+    while(run) // run until run is false
     {
-        char c = Terminal::instance().read_char();
-        if(c && c !='q')
+        char c = Terminal::instance().read_char();//each iteration reads a character 
+        if(c && c !='q' && titlescreen)
         {
-            draw();
+            draw(); //calls the function draw
         }
-        if(c == 'q')
+        if(c == 'q')// exits the loop. Exists the game
         {
-            Terminal::instance().clear();
-            Terminal::instance().move_to(1,1);
-            run = false;
+            Terminal::instance().clear();//clear the terminal
+            Terminal::instance().move_to(1,1);//move the cursor to origin(1,1)
+            run = false; //breaks the loop
+        }
+        if (c == 's')
+        { 
+	    Terminal::instance().clear();//clear the terminal
+	    titlescreen=false;
+	    snake_state();
         }
     }
-    term.show_cursor(true);
+    term.show_cursor(true);//shows the terminal cursor
 }
 
-void Game::draw()
+void Game::draw()// displays the current state of the game in the terminal
 {
-    auto& term = Terminal::instance();
-    term.clear();
-    term.move_to(1,1);
-    auto size = term.get_size();
-    term.set_text_color(TextColor::GREEN);
+    auto& term = Terminal::instance();//reference to the terminal
+    term.clear(); //clears the screen
+    term.move_to(1,1);//moves to the origin 
+    auto size = term.get_size(); // get the size of the terminal
+    term.set_text_color(TextColor::GREEN); //text is green
     //print top bounding row
     for(int i = 0; i < size.second; ++i)
     {
-        term.print("-");
+        term.print("-");//prints a row of '-'
     }
 
     //print bottom bounding row
     term.move_to(size.first, 1);
     for(int i = 0; i < size.second; ++i)
     {
-        term.print("-");
+        term.print("-");//prints a row of '-'
     }
 
     //print left bounding row
     for(int i = 2; i < size.first; ++i)
     {
         term.move_to(i, 1);
-        term.print("|");
+        term.print("|");//prints a column of '|'
     }
 
     //print right bounding row
     for(int i = 2; i < size.first; ++i)
     {
         term.move_to(i, size.second);
-        term.print("|");
+        term.print("|");//prints a column of '|'
     }
 
-    term.set_text_color(TextColor::WHITE);
+    term.set_text_color(TextColor::WHITE);//text color is white
 
     std::string line = "Terminal Snake";
     term.move_to(3, (size.second - line.length())/2);
@@ -78,4 +85,16 @@ void Game::draw()
     line = "\x1b[34mo     \x1b[33mX\x1b[35mpasqalpasqal\x1b[37m";
     term.move_to(11, size.second/2-10);
     term.print(line);
+}
+
+
+void Game::snake_state()
+{
+	auto& term = Terminal::instance();//reference to the terminal
+	auto size = term.get_size(); // get the size of the terminal
+	term.move_to(size.first/2,size.second/2);//moves to the origin
+	term.set_text_color(TextColor::YELLOW);//text color is white
+	std::string line = "x";
+	term.print(line);	
+
 }
