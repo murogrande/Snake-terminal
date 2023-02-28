@@ -1,7 +1,7 @@
 #include "title_screen.h"
 #include "terminal.h"
 
-TitleScreen::TitleScreen(std::shared_ptr<GameState> gamestate) : Level(gamestate)
+TitleScreen::TitleScreen(std::shared_ptr<GameState> gamestate, SignalHandler finished_handler) : Level(gamestate, finished_handler)
 {
 }
 
@@ -9,11 +9,11 @@ TitleScreen::~TitleScreen()
 {
 }
 
-void TitleScreen::draw()
+void TitleScreen::step(char c)
 {
+    auto& term = Terminal::instance();
     if(dirty)
     {
-        auto& term = Terminal::instance();
         auto size = gamestate->get_window_size();
         term.clear();
         term.move_to(1,1);
@@ -67,5 +67,9 @@ void TitleScreen::draw()
         term.move_to(11, size.second/2-10);
         term.print(line);    
         dirty = false;
+    }
+    if(c == 's')
+    {
+        on_finished();
     }
 }
