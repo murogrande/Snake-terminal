@@ -4,9 +4,6 @@
 #include "gamestate.h"
 #include <memory>
 
-class Game;
-typedef SignalHandler<Game,void> LevelSignal;
-
 class Level
 {
 public:

@@ -10,3 +10,6 @@ public:
     returntype operator()(args...a) {return (obj->*handler)(a...);};
     operator bool() const { return handler != nullptr && obj != nullptr;}
 };
+
+class Game;
+typedef SignalHandler<Game,void> LevelSignal;
