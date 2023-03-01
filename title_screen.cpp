@@ -1,7 +1,7 @@
 #include "title_screen.h"
 #include "terminal.h"
 
-TitleScreen::TitleScreen(std::shared_ptr<GameState> gamestate, SignalHandler finished_handler) : Level(gamestate, finished_handler)
+TitleScreen::TitleScreen(std::shared_ptr<GameState> gamestate, LevelSignal finished_handler) : Level(gamestate, finished_handler)
 {
 }
 

@@ -1,14 +1,16 @@
 #pragma once
 
+#include "signals.h"
 #include "gamestate.h"
 #include <memory>
 
-typedef void (*SignalHandler)();
+class Game;
+typedef SignalHandler<Game,void> LevelSignal;
 
 class Level
 {
 public:
-    Level(std::shared_ptr<GameState> gamestate, SignalHandler finished_handler);
+    Level(std::shared_ptr<GameState> gamestate, LevelSignal finished_handler);
     virtual ~Level();
     virtual void step(char c) = 0; //pure virtual
 protected:
@@ -16,5 +18,5 @@ protected:
     void on_finished();
     bool dirty = true;
 private:
-    SignalHandler finished_handler;
+    SignalHandler<Game, void> finished_handler;
 };

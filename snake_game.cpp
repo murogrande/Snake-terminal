@@ -1,7 +1,8 @@
 #include "snake_game.h"
 #include "terminal.h"
+#include "signals.h"
 
-SnakeGame::SnakeGame(std::shared_ptr<GameState> gamestate) : Level(gamestate, nullptr)
+SnakeGame::SnakeGame(std::shared_ptr<GameState> gamestate) : Level(gamestate, LevelSignal(nullptr,nullptr))
 {
 }
 

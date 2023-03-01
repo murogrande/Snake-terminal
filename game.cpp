@@ -10,14 +10,15 @@ enum Levels
     LEVEL_COUNT=2 //this should always be last
 };
 
-void title_screen_finished()
-{
-    Terminal::instance().print("Finished.");
+void Game::title_screen_finished()
+{    
+    gamestate->set_current_level(Levels::SNAKE_GAME);
 }
 
 Game::Game()
 {
-    levels.emplace_back(std::make_shared<TitleScreen>(gamestate, title_screen_finished));
+    auto finished_handler = SignalHandler(this, &Game::title_screen_finished);
+    levels.emplace_back(std::make_shared<TitleScreen>(gamestate, finished_handler));
     levels.emplace_back(std::make_shared<SnakeGame>(gamestate));
     Terminal::instance().show_cursor(false);
 }

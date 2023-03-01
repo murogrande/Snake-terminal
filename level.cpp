@@ -1,6 +1,6 @@
 #include "level.h"
 
-Level::Level(std::shared_ptr<GameState> gamestate, SignalHandler finished_handler) : gamestate(gamestate), finished_handler(finished_handler){}
+Level::Level(std::shared_ptr<GameState> gamestate, LevelSignal finished_handler) : gamestate(gamestate), finished_handler(finished_handler){}
 
 Level::~Level() {}
 
