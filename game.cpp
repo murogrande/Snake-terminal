@@ -37,15 +37,15 @@ void Game::run()
     while(run)
     {
         char c = term.read_char();
-        if(c !='q')
-        {
-            levels[gamestate->get_current_level()]->step(c);
-        }
         if(c == 'q')
         {
             Terminal::instance().clear();
             Terminal::instance().move_to(1,1);
             run = false;
+        }
+        else
+        {
+            levels[gamestate->get_current_level()]->step(c);
         }
     }
 }
