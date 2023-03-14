@@ -7,5 +7,5 @@ class TitleScreen: public Level
 public:
     TitleScreen(std::shared_ptr<GameState> gamestate);
     ~TitleScreen();
-    void draw() override;
+    void draw(char c) override;
 };

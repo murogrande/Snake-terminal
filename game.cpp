@@ -4,8 +4,11 @@
 #include "snake_state.h"
 Game::Game()
 {
+    auto& term = Terminal::instance();
+    auto size = term.get_size();
+    gamestate->set_window_size(size);
     levels.emplace_back(std::make_shared<TitleScreen>(gamestate));
-    //levels.emplace_back(std::make_shared<SnakeState>(gamestate));
+    levels.emplace_back(std::make_shared<SnakeState>(gamestate));
     Terminal::instance().show_cursor(false);
 }
 
@@ -15,42 +18,24 @@ Game::~Game()
 }
 
 void Game::run()
-{
-    auto& term = Terminal::instance();
-    bool run = true;
-    auto size = term.get_size();
-    gamestate->set_window_size(size);
-    levels.front()->draw();
-    
-
-    int x, y, fruitX, fruitY, score;
-    
-    x = size.first / 2;
-    y = size.second / 2;
-    fruitX = (rand() % (size.first-2))+2;
-    fruitY = (rand() % (size.second-2))+2;
-    score = 0;
-    bool titlescreen=true;
-    
+{            
+    auto& term = Terminal::instance(); 
+    bool run = true;   
     
     while(run)
     {
         char c = term.read_char();
-        if(c && c !='q' && titlescreen)
-        {
-            levels.front()->draw();
-        }
         if(c == 'q')
         {
             Terminal::instance().clear();
             Terminal::instance().move_to(1,1);
             run = false;
         }
-        if (c == 's' || c == 'i'||c == 'j'||c == 'k'||c == 'l' )
-        {                        	
-	    Terminal::instance().clear();//clear the terminal
-	    titlescreen=false;
-	    gamestate->draw_snake(c,x,y,fruitX,fruitY);
-	}
+        else
+        {   
+            if (c == 's')                       	
+                gamestate->set_current_level(1);
+            levels[gamestate->get_current_level()]->draw(c);
+	    }
     }
 }

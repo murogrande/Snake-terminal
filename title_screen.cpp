@@ -9,7 +9,7 @@ TitleScreen::~TitleScreen()
 {
 }
 
-void TitleScreen::draw()
+void TitleScreen::draw(char)
 {
     if(dirty)
     {

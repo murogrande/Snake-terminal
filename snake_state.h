@@ -10,11 +10,10 @@ public:
     ~SnakeState();
     void set_window_size(std::pair<int,int> rows_cols);
     std::pair<int,int> get_window_size();
-    void set_current_level(int level);
-    int get_current_level();
-    void draw_snake(char c, int& x, int& y, int& fruitX, int& fruitY);
-    //void step(char c) override;
+    void draw(char c) override;
 private:
-    std::pair<int,int> window_size = {0,0};
-    int current_level = 0;
+    int x = 0;
+    int y = 0;
+    int fruitX = 0;
+    int fruitY = 0;
 };

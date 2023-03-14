@@ -3,18 +3,22 @@
 
 SnakeState::SnakeState(std::shared_ptr<GameState> gamestate) : Level(gamestate)
 {
+	auto size = gamestate->get_window_size();
+	x = size.first / 2;
+    y = size.second / 2;
+    fruitX = (rand() % (size.first-2))+2;
+    fruitY = (rand() % (size.second-2))+2;
 }
 
 SnakeState::~SnakeState()
 {
 }
 
-void SnakeState::draw_snake(char c, int& x, int& y, int& fruitX, int& fruitY)
+void SnakeState::draw(char c)
 {
-    if(dirty)
-    {
+
         auto& term = Terminal::instance();
-        auto size = gamestate->get_window_size();
+        auto size = term.get_size();
         term.clear();
         term.move_to(1,1);
         term.set_text_color(TextColor::GREEN);
@@ -99,8 +103,4 @@ void SnakeState::draw_snake(char c, int& x, int& y, int& fruitX, int& fruitY)
 	//term.set_text_color(TextColor::BLUE); 
 	//term.move_to(0,size.size);
 	//term.print("score");
-
-     
-        dirty = false;
-    }
 }
