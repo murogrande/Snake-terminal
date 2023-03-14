@@ -4,6 +4,7 @@
 #include <vector>
 #include "level.h"
 #include "gamestate.h"
+#include "snake_state.h"
 
 class Game
 {
@@ -12,6 +13,7 @@ public:
     ~Game();
     void run();
 private:
+//    void title_screen_finished();
     std::shared_ptr<GameState> gamestate = std::make_shared<GameState>();
     std::vector<std::shared_ptr<Level>> levels;
 };

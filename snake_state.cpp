@@ -1,32 +1,20 @@
-#include "gamestate.h"
+#include "snake_state.h"
 #include "terminal.h"
 
-void GameState::set_window_size(std::pair<int,int> rows_cols)
+SnakeState::SnakeState(std::shared_ptr<GameState> gamestate) : Level(gamestate)
 {
-    window_size = rows_cols;
 }
 
-std::pair<int,int> GameState::get_window_size()
+SnakeState::~SnakeState()
 {
-    return window_size;
 }
 
-void GameState::set_current_level(int level)
+void SnakeState::draw_snake(char c, int& x, int& y, int& fruitX, int& fruitY)
 {
-    current_level = level;
-}
-
-int GameState::get_current_level()
-{
-    return current_level;
-}
-
-
-void GameState::draw_snake(char c, int& x, int& y, int& fruitX, int& fruitY)
-{
-
+    if(dirty)
+    {
         auto& term = Terminal::instance();
-        auto size = term.get_size();
+        auto size = gamestate->get_window_size();
         term.clear();
         term.move_to(1,1);
         term.set_text_color(TextColor::GREEN);
@@ -112,5 +100,7 @@ void GameState::draw_snake(char c, int& x, int& y, int& fruitX, int& fruitY)
 	//term.move_to(0,size.size);
 	//term.print("score");
 
- 
+     
+        dirty = false;
+    }
 }
