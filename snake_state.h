@@ -1,5 +1,6 @@
 #pragma once
 #include "level.h"
+#include "snake.h"
 
 class SnakeState;
 
@@ -16,4 +17,6 @@ private:
     int y = 0;
     int fruitX = 0;
     int fruitY = 0;
+    void boundary();
+    Snake snake;
 };
