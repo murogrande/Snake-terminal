@@ -12,8 +12,8 @@ SnakeState::~SnakeState()
 {
 }
 void SnakeState::draw(char c)
-{ // give the crach boundary 
-// chech if the snake crash and ser the level to title screen level 0
+{ // give the crash boundary 
+// chech if the snake crash and set the level to title screen level 0
 // make the fruit object, get rid of loop 2 (line 27). Very simmilar to snake.
 
         auto& term = Terminal::instance();
@@ -23,6 +23,10 @@ void SnakeState::draw(char c)
 		boundary();
 		snake.move(c);
 		snake.draw();
+
+		// if (snake.crash_boundary()){
+		// 	gamestate->set_current_level(0);
+		// }
 	
 	
 	for (int i = 2; i  < size.first; i++)//chech the initial number

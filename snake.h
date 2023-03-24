@@ -10,10 +10,11 @@ public:
     ~Snake();
     void move(char c);
     void draw();
+    bool crash_boundary();
 private:
 
     int position_x;
-    int position_y;
+    int position_y;   
 
 };
 
