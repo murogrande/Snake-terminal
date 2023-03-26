@@ -25,7 +25,7 @@ void SnakeState::draw(char c)
 	if (snake.crash_boundary(size.second, size.first))
 	{
 		snake.set_position(size.second/2, size.first/2);
-	 	gamestate->set_current_level(0);
+	 	gamestate->set_current_level(CurrentLevel::TITLE_SCREEN);
 	}
 	
 	auto& term = Terminal::instance();

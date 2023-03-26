@@ -14,7 +14,7 @@ void TitleScreen::draw(char c)
     if(c == 's')
     {
         dirty = true;
-        gamestate->set_current_level(1);
+        gamestate->set_current_level(CurrentLevel::SNAKE_STATE);
     }
     else if(dirty)
     {

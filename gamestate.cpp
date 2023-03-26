@@ -11,7 +11,7 @@ std::pair<int,int> GameState::get_window_size()
     return window_size;
 }
 
-void GameState::set_current_level(int level)
+void GameState::set_current_level(CurrentLevel level)
 {
     current_level = level;
 }
