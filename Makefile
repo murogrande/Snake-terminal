@@ -5,7 +5,7 @@ CFLAGS = -O2 -fexceptions
 %.o: %.cpp
 	g++ ${CFLAGS} -c $< -o $@
 
-build: ${SRC}
+build: ${OBJ}
 	g++ ${CFLAGS} -o main.exe ${OBJ}
 
 run: build

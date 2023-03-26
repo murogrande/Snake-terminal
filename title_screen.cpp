@@ -9,9 +9,14 @@ TitleScreen::~TitleScreen()
 {
 }
 
-void TitleScreen::draw(char)
+void TitleScreen::draw(char c)
 {
-    if(dirty)
+    if(c == 's')
+    {
+        dirty = true;
+        gamestate->set_current_level(1);
+    }
+    else if(dirty)
     {
         auto& term = Terminal::instance();
         auto size = gamestate->get_window_size();

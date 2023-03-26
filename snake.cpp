@@ -53,23 +53,20 @@ void Snake::draw()
     term.print("X");  
 }
 
-bool Snake::crash_boundary()
-{       
+bool Snake::crash_boundary(int size_x, int size_y)
+{
     auto& term = Terminal::instance();
-    auto size = term.get_size();
-    int middleX = size.first/2;
-    int middleY = size.second/2;
 
-    if ((position_x <0 || position_x > (size.first-4) || position_y<0 || position_y>(size.second-4))){
-        term.set_text_color(TextColor::BLUE);
-        term.clear();
-        term.move_to(middleX,middleY);
-        term.print("Game Over");
-        //gamestate->set_current_level(0);
-        //it cannot draw char is empty
+    if (position_x <= 1 || position_x >= size_x || position_y<= 1 || position_y>=size_y)
+    {
         return true;  
     }
     return false;
 }
 
+void Snake::set_position(int position_x, int position_y)
+{
+    this->position_x = position_x;
+    this->position_y = position_y;
+}
 

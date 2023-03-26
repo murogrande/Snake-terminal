@@ -32,9 +32,7 @@ void Game::run()
             run = false;
         }
         else
-        {   
-            if (c == 's')                       	
-                gamestate->set_current_level(1);
+        {
             levels[gamestate->get_current_level()]->draw(c);
 	    }
     }
