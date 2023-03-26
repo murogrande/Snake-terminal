@@ -54,21 +54,22 @@ void Snake::draw()
 }
 
 bool Snake::crash_boundary()
-{       auto& term = Terminal::instance();
-        auto size = term.get_size();
-        int middleX = size.first/2;
-        int middleY = size.second/2;
+{       
+    auto& term = Terminal::instance();
+    auto size = term.get_size();
+    int middleX = size.first/2;
+    int middleY = size.second/2;
 
-        if ((position_x <0 || position_x > (size.first-4) || position_y<0 || position_y>(size.second-4))){
-            term.set_text_color(TextColor::BLUE);
-            term.clear();
-		    term.move_to(middleX,middleY);
-		    term.print("Game Over");
-            //gamestate->set_current_level(0);
-            //it cannot draw char is empty
-            return true;  
-        }
-        return false;
+    if ((position_x <0 || position_x > (size.first-4) || position_y<0 || position_y>(size.second-4))){
+        term.set_text_color(TextColor::BLUE);
+        term.clear();
+        term.move_to(middleX,middleY);
+        term.print("Game Over");
+        //gamestate->set_current_level(0);
+        //it cannot draw char is empty
+        return true;  
+    }
+    return false;
 }
 
 

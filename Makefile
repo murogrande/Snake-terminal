@@ -1,11 +1,11 @@
-OBJ = main.o terminal.o game.o level.o title_screen.o gamestate.o snake_state.o snake.o
-HEADERS = terminal.h game.h level.h title_screen.h gamestate.h snake_state.h snake.h
+SRC = $(wildcard *.cpp)
+OBJ = ${SRC:.cpp=.o}
 CFLAGS = -O2 -fexceptions
 
-%.o: %.cpp ${HEADERS}
+%.o: %.cpp
 	g++ ${CFLAGS} -c $< -o $@
 
-build: ${OBJ}
+build: ${SRC}
 	g++ ${CFLAGS} -o main.exe ${OBJ}
 
 run: build

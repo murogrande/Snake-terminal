@@ -1,7 +1,7 @@
 #include "snake_state.h"
 #include "terminal.h"
 
-SnakeState::SnakeState(std::shared_ptr<GameState> gamestate) : Level(gamestate), snake((gamestate->get_window_size()).second/2, (gamestate->get_window_size()).first/2)
+SnakeState::SnakeState(std::shared_ptr<GameState> gamestate) : Level(gamestate), snake(gamestate->get_window_size().second/2, gamestate->get_window_size().first/2)
 {
 	auto size = gamestate->get_window_size();
     fruitX = (rand() % (size.first-2))+2;
@@ -12,21 +12,22 @@ SnakeState::~SnakeState()
 {
 }
 void SnakeState::draw(char c)
-{ // give the crash boundary 
-// chech if the snake crash and set the level to title screen level 0
-// make the fruit object, get rid of loop 2 (line 27). Very simmilar to snake.
+{ 
+	// give the crash boundary 
+	// chech if the snake crash and set the level to title screen level 0
+	// make the fruit object, get rid of loop 2 (line 27). Very simmilar to snake.
 
-        auto& term = Terminal::instance();
-        auto size = term.get_size();
-        term.clear();
-        term.move_to(1,1);
-		boundary();
-		snake.move(c);
-		snake.draw();
+	auto& term = Terminal::instance();
+	auto size = term.get_size();
+	term.clear();
+	term.move_to(1,1);
+	boundary();
+	snake.move(c);
+	snake.draw();
 
-		// if (snake.crash_boundary()){
-		// 	gamestate->set_current_level(0);
-		// }
+	// if (snake.crash_boundary()){
+	// 	gamestate->set_current_level(0);
+	// }
 	
 	
 	for (int i = 2; i  < size.first; i++)//chech the initial number
