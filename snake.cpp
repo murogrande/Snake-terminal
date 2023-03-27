@@ -1,6 +1,8 @@
 #include "snake.h"
 #include "terminal.h"
 #include "gamestate.h"
+#include <chrono>
+
 
 Snake::Snake(int position_x, int position_y): position_x(position_x),position_y(position_y)
 { 
@@ -16,6 +18,7 @@ void Snake::move(char c)
 {
     enum eDirection {STOP = 0, LEFT, RIGHT, UP, DOWN};
     eDirection dir;
+
         dir = STOP;
         if (c == 'j')
         	dir = LEFT;
@@ -59,7 +62,7 @@ bool Snake::crash_boundary(int size_x, int size_y)
 
     if (position_x <= 1 || position_x >= size_x || position_y<= 1 || position_y>=size_y)
     {
-        return true;  
+        return true; // why is it starting from 1? 
     }
     return false;
 }

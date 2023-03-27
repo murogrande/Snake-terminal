@@ -1,6 +1,9 @@
 #include "snake_state.h"
 #include "terminal.h"
 
+#include <chrono>
+#include <thread>
+
 SnakeState::SnakeState(std::shared_ptr<GameState> gamestate) : Level(gamestate), snake(gamestate->get_window_size().second/2, gamestate->get_window_size().first/2)
 {
 	auto size = gamestate->get_window_size();
@@ -18,6 +21,11 @@ void SnakeState::draw(char c)
 	// make the fruit object, get rid of loop 2 (line 27). Very simmilar to snake.
 
 	auto size = gamestate->get_window_size();
+
+	int counter=0;
+	while (counter < 20)////
+	{
+			
 	boundary();
 	snake.move(c);
 	snake.draw();	
@@ -36,10 +44,14 @@ void SnakeState::draw(char c)
 	//term.set_text_color(TextColor::BLUE); 
 	//term.move_to(0,size.size);
 	//term.print("score");
+	std::this_thread::sleep_for(std::chrono::milliseconds(250));
+	counter ++;
+	}
 }
 
 
-//print top bounding row
+
+//print boundary
 void SnakeState::boundary(){
 	auto& term = Terminal::instance();
 	term.clear();

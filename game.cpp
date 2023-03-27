@@ -2,6 +2,9 @@
 #include "terminal.h"
 #include "title_screen.h"
 #include "snake_state.h"
+#include <chrono>
+
+
 Game::Game()
 {
     auto& term = Terminal::instance();
