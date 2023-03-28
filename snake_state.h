@@ -1,7 +1,7 @@
 #pragma once
 #include "level.h"
 #include "snake.h"
-//#include "fruit.h"
+#include "fruit.h"
 
 class SnakeState;
 
@@ -20,5 +20,5 @@ private:
     int fruitY = 0;// delete when you have the fruit class
     void boundary();
     Snake snake;
-    //Fruit fruit;
+    Fruit fruit;
 };

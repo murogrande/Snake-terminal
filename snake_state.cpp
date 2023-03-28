@@ -3,12 +3,16 @@
 
 #include <chrono>
 #include <thread>
+#include <ctime>
 
-SnakeState::SnakeState(std::shared_ptr<GameState> gamestate) : Level(gamestate), snake(gamestate->get_window_size().second/2, gamestate->get_window_size().first/2)
+SnakeState::SnakeState(std::shared_ptr<GameState> gamestate) : Level(gamestate), snake(gamestate->get_window_size().second/2, gamestate->get_window_size().first/2),fruit(((rand() % (gamestate->get_window_size().second-3))+2),5)
 {
 	auto size = gamestate->get_window_size();
-    fruitX = (rand() % (size.second-3))+2;
-    fruitY = (rand() % (size.first-3))+2;
+
+	
+    //fruitX = (rand() % (size.second-3))+2;
+    //fruitY = (rand() % (size.first-3))+2;
+	//fruit.set_position((rand() % (size.second-3))+2,(rand() % (size.first-3))+2)
 }
 
 SnakeState::~SnakeState()
@@ -19,11 +23,12 @@ void SnakeState::draw(char c)
 	// give the crash boundary 
 	// chech if the snake crash and set the level to title screen level 0
 	// make the fruit object, get rid of loop 2 (line 27). Very simmilar to snake.
+	srand(time(0));
 
 	auto size = gamestate->get_window_size();
 
 	int counter=0;
-	while (counter < 20)////
+	while (counter < 2)////
 	{
 			
 	boundary();
@@ -36,10 +41,7 @@ void SnakeState::draw(char c)
 	 	gamestate->set_current_level(CurrentLevel::TITLE_SCREEN);
 	}
 	
-	auto& term = Terminal::instance();
-	term.set_text_color(TextColor::BLUE);
-	term.move_to(fruitY,fruitX);
-	term.print("F");
+	fruit.draw();
 	// score for later
 	//term.set_text_color(TextColor::BLUE); 
 	//term.move_to(0,size.size);
