@@ -5,11 +5,11 @@
 #include <thread>
 #include <ctime>
 
-SnakeState::SnakeState(std::shared_ptr<GameState> gamestate) : Level(gamestate), snake(gamestate->get_window_size().second/2, gamestate->get_window_size().first/2),fruit(((rand() % (gamestate->get_window_size().second-3))+2),5)
+SnakeState::SnakeState(std::shared_ptr<GameState> gamestate) : Level(gamestate), snake(gamestate->get_window_size().second/2, gamestate->get_window_size().first/2),fruit(5,5)
 {
 	auto size = gamestate->get_window_size();
 
-	
+	current_time = std::chrono::system_clock::now();//time_point variable
     //fruitX = (rand() % (size.second-3))+2;
     //fruitY = (rand() % (size.first-3))+2;
 	//fruit.set_position((rand() % (size.second-3))+2,(rand() % (size.first-3))+2)
@@ -23,35 +23,36 @@ void SnakeState::draw(char c)
 	// give the crash boundary 
 	// chech if the snake crash and set the level to title screen level 0
 	// make the fruit object, get rid of loop 2 (line 27). Very simmilar to snake.
-	srand(time(0));
+	//srand(time(0));
 
 	auto size = gamestate->get_window_size();
+	auto current_time_now = std::chrono::system_clock::now();
 
-	int counter=0;
-	while (counter < 2)////
-	{
-			
+
 	boundary();
-	snake.move(c);
-	snake.draw();	
+	snake.set_direction(c);
+	if (current_time_now - current_time > frame_rate){
+		snake.move();
+		current_time = current_time_now;
+	}
+	// if statement with delta time bigger_rate
+
+
+	snake.draw();
+
 
 	if (snake.crash_boundary(size.second, size.first))
 	{
 		snake.set_position(size.second/2, size.first/2);
 	 	gamestate->set_current_level(CurrentLevel::TITLE_SCREEN);
 	}
-	
 	fruit.draw();
 	// score for later
 	//term.set_text_color(TextColor::BLUE); 
 	//term.move_to(0,size.size);
 	//term.print("score");
-	std::this_thread::sleep_for(std::chrono::milliseconds(250));
-	counter ++;
-	}
+	
 }
-
-
 
 //print boundary
 void SnakeState::boundary(){

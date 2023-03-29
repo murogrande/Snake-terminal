@@ -14,21 +14,8 @@ Snake::~Snake()
 
 }
 
-void Snake::move(char c)
+void Snake::move()
 {
-    enum eDirection {STOP = 0, LEFT, RIGHT, UP, DOWN};
-    eDirection dir;
-
-        dir = STOP;
-        if (c == 'j')
-        	dir = LEFT;
-        if (c == 'l')
-            	dir = RIGHT;
-        if (c == 'k')
-            	dir = DOWN;
-        if (c == 'i')
-            	dir = UP;
- 
         switch(dir)
 	{
 	case LEFT:
@@ -65,6 +52,19 @@ bool Snake::crash_boundary(int size_x, int size_y)
         return true; // why is it starting from 1? 
     }
     return false;
+}
+
+void Snake::set_direction(char c)
+{
+     dir = STOP; // use a another method for the direction 
+        if (c == 'j')
+        	dir = LEFT;
+        if (c == 'l')
+            	dir = RIGHT;
+        if (c == 'k')
+            	dir = DOWN;
+        if (c == 'i')
+            	dir = UP;
 }
 
 void Snake::set_position(int position_x, int position_y)
