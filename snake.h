@@ -11,6 +11,7 @@ public:
     void set_position(int position_x, int position_y);
     void move();
     void draw();
+    void undraw();
     bool crash_boundary(int size_x, int size_y);
     void set_direction(char c);
 
