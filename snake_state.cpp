@@ -27,8 +27,6 @@ void SnakeState::draw(char c)
 
 	auto size = gamestate->get_window_size();
 	auto current_time_now = std::chrono::system_clock::now();
-
-
 	boundary();
 	snake.set_direction(c);
 	if (current_time_now - current_time > frame_rate){
@@ -36,8 +34,6 @@ void SnakeState::draw(char c)
 		current_time = current_time_now;
 	}
 	// if statement with delta time bigger_rate
-
-
 	snake.draw();
 
 
