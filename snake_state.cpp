@@ -19,9 +19,6 @@ void SnakeState::draw(char c)
 { 
 	auto size = gamestate->get_window_size();
 	auto current_time_now = std::chrono::system_clock::now();
-
-	boundary();
-
 	
 	//only draw the game boundary when we first get into this level
 	//this prevents flickering of the screen
@@ -45,12 +42,6 @@ void SnakeState::draw(char c)
 		current_time = current_time_now;
 
 	}
-	// if statement with delta time bigger_rate
-	snake.draw();
-
-
-		
-
 
 	if (snake.crash_boundary(size.second, size.first))
 	{
