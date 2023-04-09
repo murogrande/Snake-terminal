@@ -4,7 +4,7 @@
 #include <vector>
 #include "level.h"
 #include "gamestate.h"
-#include "snake_state.h"
+#include "snake_game.h"
 
 class Game
 {

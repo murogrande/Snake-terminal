@@ -7,7 +7,7 @@ class Fruit
 {
 public:
     
-    Fruit(int fruit_pos_x, int fruit_pos_y );
+    Fruit();
     ~Fruit();
 
     void set_position(int position_x, int position_y);

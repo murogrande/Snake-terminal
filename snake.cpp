@@ -6,7 +6,7 @@
 
 Snake::Snake(int position_x, int position_y): position_x(position_x),position_y(position_y)
 { 
-     dir = STOP; // use a another method for the direction 
+     dir = RIGHT; // use a another method for the direction 
 }
 
 Snake::~Snake()

@@ -2,9 +2,8 @@
 #include "terminal.h"
 
 
-Fruit::Fruit(int fruit_pos_x, int fruit_pos_y):fruit_pos_x(fruit_pos_x),fruit_pos_y(fruit_pos_y)
-{
-    
+Fruit::Fruit()
+{    
 }
 
 Fruit::~Fruit()

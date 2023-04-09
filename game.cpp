@@ -1,7 +1,6 @@
 #include "game.h"
 #include "terminal.h"
 #include "title_screen.h"
-#include "snake_state.h"
 #include <chrono>
 
 
@@ -11,7 +10,7 @@ Game::Game()
     auto size = term.get_size();
     gamestate->set_window_size(size);
     levels.emplace_back(std::make_shared<TitleScreen>(gamestate));
-    levels.emplace_back(std::make_shared<SnakeState>(gamestate));
+    levels.emplace_back(std::make_shared<SnakeGame>(gamestate));
     Terminal::instance().show_cursor(false);
 }
 

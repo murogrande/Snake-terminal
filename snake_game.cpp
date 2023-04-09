@@ -1,21 +1,22 @@
-#include "snake_state.h"
+#include "snake_game.h"
 #include "terminal.h"
 
 #include <chrono>
 #include <thread>
 #include <ctime>
 
-SnakeState::SnakeState(std::shared_ptr<GameState> gamestate) : Level(gamestate), snake(gamestate->get_window_size().second/2, gamestate->get_window_size().first/2),fruit(5,5)
+SnakeGame::SnakeGame(std::shared_ptr<GameState> gamestate) : Level(gamestate), snake(gamestate->get_window_size().second/2,
+	gamestate->get_window_size().first/2), rng(time(nullptr)),
+	rows_dist(2,gamestate->get_window_size().first-1), cols_dist(2,gamestate->get_window_size().second-1)
 {
-	auto size = gamestate->get_window_size();
-
+	fruit.set_position(cols_dist(rng), rows_dist(rng));
 	current_time = std::chrono::system_clock::now();//time_point variable
 }
 
-SnakeState::~SnakeState()
+SnakeGame::~SnakeGame()
 {
 }
-void SnakeState::draw(char c)
+void SnakeGame::draw(char c)
 { 
 	auto size = gamestate->get_window_size();
 	auto current_time_now = std::chrono::system_clock::now();
@@ -52,7 +53,7 @@ void SnakeState::draw(char c)
 }
 
 //print boundary
-void SnakeState::boundary(){
+void SnakeGame::boundary(){
 	auto& term = Terminal::instance();
 	term.clear();
     auto size = term.get_size();
