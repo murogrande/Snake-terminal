@@ -11,16 +11,21 @@ Fruit::~Fruit()
 
 }
 
-void Fruit::set_position(int fruit_pos_x, int fruit_pos_y)
+void Fruit::set_position(int x, int y)
 {
-    this -> fruit_pos_x = fruit_pos_x;
-    this -> fruit_pos_y = fruit_pos_y;
+    this->x = x;
+    this->y = y;
+}
+
+std::pair<int /*x*/,int /*y*/> Fruit::get_position()
+{
+    return {x,y};
 }
 
 void Fruit::draw()
 {
     auto& term = Terminal::instance();
 	term.set_text_color(TextColor::BLUE);
-    term.move_to(fruit_pos_y,fruit_pos_x);
+    term.move_to(y,x);
 	term.print("F");
 }

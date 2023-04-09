@@ -38,6 +38,10 @@ void SnakeGame::draw(char c)
 	if (current_time_now - current_time > frame_rate){
 		snake.undraw();
 		snake.move();
+		if(snake.has_fruit(fruit))
+		{
+			fruit.set_position(cols_dist(rng), rows_dist(rng));
+		}
 		snake.draw();
 		fruit.draw();
 		current_time = current_time_now;

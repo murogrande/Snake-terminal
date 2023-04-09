@@ -1,7 +1,5 @@
-#ifndef FRUIT_H
-#define FRUIT_H
-
 #pragma once
+#include <utility>
 
 class Fruit
 {
@@ -10,14 +8,13 @@ public:
     Fruit();
     ~Fruit();
 
-    void set_position(int position_x, int position_y);
+    void set_position(int x, int y);
+    std::pair<int /*x*/,int /*y*/> get_position();
     void draw();
 
 private:
 
-int fruit_pos_x;
-int fruit_pos_y;
+int x;
+int y;
 
 };
-
-#endif

@@ -4,7 +4,7 @@
 #include <chrono>
 
 
-Snake::Snake(int position_x, int position_y): position_x(position_x),position_y(position_y)
+Snake::Snake(int x, int y): x(x),y(y)
 { 
      dir = RIGHT; // use a another method for the direction 
 }
@@ -19,16 +19,16 @@ void Snake::move()
     switch(dir)
 	{
 	case LEFT:
-		position_x--;//move to left
+		x--;//move to left
 		break;
 	case RIGHT:
-		position_x++;//move to right
+		x++;//move to right
 		break;
 	case UP:
-		position_y--;//move up
+		y--;//move up
 		break;
 	case DOWN:
-		position_y++;//move down
+		y++;//move down
 		break;	
 	default:
 		break;
@@ -38,7 +38,7 @@ void Snake::move()
 void Snake::draw()
 {
     auto& term = Terminal::instance();
-    term.move_to(position_y,position_x);
+    term.move_to(y,x);
     term.set_text_color(TextColor::YELLOW);
     term.print("X");  
 }
@@ -46,16 +46,22 @@ void Snake::draw()
 void Snake::undraw()
 {
     auto& term = Terminal::instance();
-    term.move_to(position_y,position_x);
+    term.move_to(y,x);
     term.set_text_color(TextColor::YELLOW);
     term.print(" ");  
+}
+
+bool Snake::has_fruit(Fruit& fruit)
+{
+	auto fruit_pos = fruit.get_position();
+	return x == fruit_pos.first && y == fruit_pos.second;
 }
 
 bool Snake::crash_boundary(int size_x, int size_y)
 {
     auto& term = Terminal::instance();
 
-    if (position_x <= 1 || position_x >= size_x || position_y<= 1 || position_y>=size_y)
+    if (x <= 1 || x >= size_x || y<= 1 || y>=size_y)
     {
         return true; // why is it starting from 1? 
     }
@@ -74,9 +80,9 @@ void Snake::set_direction(char c)
 			dir = UP;
 }
 
-void Snake::set_position(int position_x, int position_y)
+void Snake::set_position(int x, int y)
 {
-    this->position_x = position_x;
-    this->position_y = position_y;
+    this->x = x;
+    this->y = y;
 }
 
