@@ -15,5 +15,5 @@ public:
 private:
 //    void title_screen_finished();
     std::shared_ptr<GameState> gamestate = std::make_shared<GameState>();
-    std::vector<std::shared_ptr<Level>> levels;
+    std::vector<std::unique_ptr<Level>> levels;
 };

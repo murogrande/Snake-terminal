@@ -5,10 +5,6 @@ TitleScreen::TitleScreen(std::shared_ptr<GameState> gamestate) : Level(gamestate
 {
 }
 
-TitleScreen::~TitleScreen()
-{
-}
-
 void TitleScreen::draw(char c)
 {
     if(c == 's')

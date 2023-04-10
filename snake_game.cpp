@@ -5,17 +5,14 @@
 #include <thread>
 #include <ctime>
 
-SnakeGame::SnakeGame(std::shared_ptr<GameState> gamestate) : Level(gamestate), snake(gamestate->get_window_size().second/2,
-	gamestate->get_window_size().first/2), rng(time(nullptr)),
+SnakeGame::SnakeGame(std::shared_ptr<GameState> gamestate) : Level(gamestate), rng(time(nullptr)),
 	rows_dist(2,gamestate->get_window_size().first-1), cols_dist(2,gamestate->get_window_size().second-1)
 {
-	fruit.set_position(cols_dist(rng), rows_dist(rng));
+	snake.set_position(gamestate->get_window_size().second/2, gamestate->get_window_size().first/2);
+    fruit.set_position(cols_dist(rng), rows_dist(rng));
 	current_time = std::chrono::system_clock::now();//time_point variable
 }
 
-SnakeGame::~SnakeGame()
-{
-}
 void SnakeGame::draw(char c)
 { 
 	auto size = gamestate->get_window_size();

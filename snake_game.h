@@ -11,7 +11,6 @@ class SnakeGame: public Level
 {
 public:
     SnakeGame(std::shared_ptr<GameState> gamestate);
-    ~SnakeGame();
     void set_window_size(std::pair<int,int> rows_cols);
     std::pair<int,int> get_window_size();
     void draw(char c) override;

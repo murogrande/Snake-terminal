@@ -3,32 +3,27 @@
 #include "gamestate.h"
 #include <chrono>
 
-
-Snake::Snake(int x, int y): x(x),y(y)
-{ 
-     dir = RIGHT; // use a another method for the direction 
-}
-
-Snake::~Snake()
+Snake::Snake()
 {
-
+	segments.emplace_back(std::make_unique<Head>());
 }
 
 void Snake::move()
 {
+	auto pos = segments[0]->get_position();
     switch(dir)
 	{
 	case LEFT:
-		x--;//move to left
+		segments[0]->set_position(--pos.first, pos.second);
 		break;
 	case RIGHT:
-		x++;//move to right
+		segments[0]->set_position(++pos.first, pos.second);
 		break;
 	case UP:
-		y--;//move up
+		segments[0]->set_position(pos.first, --pos.second);
 		break;
 	case DOWN:
-		y++;//move down
+		segments[0]->set_position(pos.first, ++pos.second);
 		break;	
 	default:
 		break;
@@ -37,31 +32,26 @@ void Snake::move()
 
 void Snake::draw()
 {
-    auto& term = Terminal::instance();
-    term.move_to(y,x);
-    term.set_text_color(TextColor::YELLOW);
-    term.print("X");  
+	segments[0]->draw();
 }
 
 void Snake::undraw()
-{
-    auto& term = Terminal::instance();
-    term.move_to(y,x);
-    term.set_text_color(TextColor::YELLOW);
-    term.print(" ");  
+{  
+	segments[0]->undraw();
 }
 
 bool Snake::has_fruit(Fruit& fruit)
 {
 	auto fruit_pos = fruit.get_position();
-	return x == fruit_pos.first && y == fruit_pos.second;
+	auto pos = segments[0]->get_position();
+	return pos.first == fruit_pos.first && pos.second == fruit_pos.second;
 }
 
 bool Snake::crash_boundary(int size_x, int size_y)
 {
-    auto& term = Terminal::instance();
+	auto pos = segments[0]->get_position();
 
-    if (x <= 1 || x >= size_x || y<= 1 || y>=size_y)
+    if (pos.first <= 1 || pos.first >= size_x || pos.second<= 1 || pos.second>=size_y)
     {
         return true; // why is it starting from 1? 
     }
@@ -82,7 +72,6 @@ void Snake::set_direction(char c)
 
 void Snake::set_position(int x, int y)
 {
-    this->x = x;
-    this->y = y;
+    segments[0]->set_position(x,y);
 }
 

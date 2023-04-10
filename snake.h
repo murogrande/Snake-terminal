@@ -1,11 +1,13 @@
 #pragma once
 #include "fruit.h"
+#include "snake_segments.h"
+#include <vector>
+#include <memory>
 
 class Snake
 {
 public:
-    Snake(int position_x,int position_y);
-    ~Snake();
+    Snake();
     void set_position(int position_x, int position_y);
     void move();
     void draw();
@@ -17,8 +19,5 @@ public:
 private:
     enum eDirection {STOP = 0, LEFT, RIGHT, UP, DOWN};
     eDirection dir;
-
-    int x;
-    int y;   
-
+    std::vector<std::unique_ptr<SnakeSegment>> segments;   
 };

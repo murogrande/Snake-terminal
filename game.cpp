@@ -9,8 +9,8 @@ Game::Game()
     auto& term = Terminal::instance();
     auto size = term.get_size();
     gamestate->set_window_size(size);
-    levels.emplace_back(std::make_shared<TitleScreen>(gamestate));
-    levels.emplace_back(std::make_shared<SnakeGame>(gamestate));
+    levels.emplace_back(std::make_unique<TitleScreen>(gamestate));
+    levels.emplace_back(std::make_unique<SnakeGame>(gamestate));
     Terminal::instance().show_cursor(false);
 }
 

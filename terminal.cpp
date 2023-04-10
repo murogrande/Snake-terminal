@@ -22,7 +22,7 @@ Terminal::Terminal()
     flags.c_lflag &= ~ECHO; // don't echo input
     flags.c_lflag &= ~OPOST; // don't post process output
     flags.c_cc[VMIN] = 0; // block until at least 0 chars have been read
-    flags.c_cc[VTIME] = 0; // or 1*0.1secs have passed
+    flags.c_cc[VTIME] = 0; // and 0*0.1secs have passed
     if (tcsetattr(STDIN_FILENO,TCSANOW,&flags)<0) 
     {
         std::cout << "Failed to set flags for std::cin\n";
