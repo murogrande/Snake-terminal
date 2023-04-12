@@ -22,6 +22,4 @@ private:
     Snake snake;
     Fruit fruit;
     std::mt19937 rng;
-	std::uniform_int_distribution<uint32_t> rows_dist;
-	std::uniform_int_distribution<uint32_t> cols_dist;
 };

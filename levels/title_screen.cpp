@@ -64,7 +64,7 @@ void TitleScreen::draw(char c)
         term.move_to(size.first-1, 2);
         term.print(line);
         
-        line = "\x1b[34mo     \x1b[33mX\x1b[35mpasqalpasqal\x1b[37m";
+        line = "\x1b[36mo     \x1b[37mX\x1b[32mpasqalpasqal\x1b[37m";
         term.move_to(11, size.second/2-10);
         term.print(line);    
         dirty = false;

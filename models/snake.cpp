@@ -55,9 +55,9 @@ void Snake::grow()
 void Snake::draw()
 {
     auto& term = Terminal::instance();
-    term.set_text_color(TextColor::YELLOW);
+    term.set_text_color(TextColor::WHITE);
 	segments[0]->draw();
-    term.set_text_color(TextColor::MAGENTA);
+    term.set_text_color(TextColor::GREEN);
 	//Loop over the tail
 	for(auto it = ++segments.begin(); it != segments.end(); ++it)
 	{
@@ -113,3 +113,13 @@ void Snake::set_direction(char c)
 			dir = UP;
 }
 
+std::vector<std::pair<int,int>> Snake::get_positions()
+{
+	std::vector<std::pair<int,int>> positions;
+
+	for(auto it = segments.begin(); it != segments.end(); ++it)
+	{
+		positions.emplace_back((*it)->get_position());
+	}
+	return positions;
+}

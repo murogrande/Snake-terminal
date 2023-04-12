@@ -16,6 +16,7 @@ public:
     bool crash_self();
     bool has_fruit(Fruit& fruit);
     void set_direction(char c);
+    std::vector<std::pair<int,int>> get_positions();
 
 private:
     enum eDirection {STOP = 0, LEFT, RIGHT, UP, DOWN};

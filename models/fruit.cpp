@@ -25,7 +25,7 @@ std::pair<int /*x*/,int /*y*/> Fruit::get_position()
 void Fruit::draw()
 {
     auto& term = Terminal::instance();
-	term.set_text_color(TextColor::BLUE);
+	term.set_text_color(TextColor::CYAN);
     term.move_to(y,x);
 	term.print("o");
 }

@@ -4,12 +4,13 @@
 #include <chrono>
 #include <thread>
 #include <ctime>
+#include <queue>
 
 SnakeGame::SnakeGame(std::shared_ptr<GameState> gamestate) : Level(gamestate), rng(time(nullptr)),
-	snake(gamestate->get_window_size().second/2+1, gamestate->get_window_size().first/2),
-	rows_dist(2,gamestate->get_window_size().first-1), cols_dist(2,gamestate->get_window_size().second-1)
+	snake(gamestate->get_window_size().second/2+1, gamestate->get_window_size().first/2)
 {
-    fruit.set_position(cols_dist(rng), rows_dist(rng));
+	auto pos = new_fruit_position();
+	fruit.set_position(pos.first, pos.second);
 	current_time = std::chrono::system_clock::now();//time_point variable
 }
 
@@ -17,7 +18,7 @@ void SnakeGame::draw(char c)
 { 
 	auto size = gamestate->get_window_size();
 	auto current_time_now = std::chrono::system_clock::now();
-	
+
 	//only draw the game boundary when we first get into this level
 	//this prevents flickering of the screen
 	if(dirty)
@@ -51,13 +52,41 @@ void SnakeGame::draw(char c)
 	{
 		dirty = true;
 		snake = Snake(size.second/2+1, size.first/2);
+		auto pos = new_fruit_position();
+		fruit.set_position(pos.first, pos.second);
 	 	gamestate->set_current_level(CurrentLevel::TITLE_SCREEN);
 	}
 }
 
 std::pair<int,int> SnakeGame::new_fruit_position()
 {
-	return {cols_dist(rng), rows_dist(rng)};
+	//get linear size of the game area
+	auto screen_size = gamestate->get_window_size();
+	int field_size = (screen_size.first - 2) * (screen_size.second - 2);
+
+	auto snake_positions = snake.get_positions();
+
+	//subtract snake size, and get random tile
+	field_size -= snake_positions.size();
+	std::uniform_int_distribution<uint32_t> dist(0, field_size - 1);
+	int new_fruit_index = dist(rng);
+
+	//generate snake position indices
+	std::priority_queue<int, std::vector<int>, std::greater<int>> snake_indices;
+	for(auto it = snake_positions.begin(); it != snake_positions.end(); ++it)
+	{
+		int index = (it->first-2)+(it->second-2)*(screen_size.second - 2);
+		snake_indices.push(index);
+	}
+
+	//convert random tile to tile including snake positions
+	while(!snake_indices.empty() && new_fruit_index >= snake_indices.top())
+	{
+		snake_indices.pop();
+		new_fruit_index++;
+	}
+
+	return {new_fruit_index%(screen_size.second - 2)+2, new_fruit_index/(screen_size.second - 2)+2};
 }
 
 //print boundary
