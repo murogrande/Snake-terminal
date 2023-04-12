@@ -1,6 +1,6 @@
 #include "game.h"
-#include "terminal.h"
-#include "title_screen.h"
+#include "../io/terminal.h"
+#include "../levels/title_screen.h"
 #include <chrono>
 
 

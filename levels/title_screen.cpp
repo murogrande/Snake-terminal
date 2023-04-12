@@ -1,5 +1,5 @@
 #include "title_screen.h"
-#include "terminal.h"
+#include "../io/terminal.h"
 
 TitleScreen::TitleScreen(std::shared_ptr<GameState> gamestate) : Level(gamestate)
 {

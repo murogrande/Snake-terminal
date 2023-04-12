@@ -1,14 +1,14 @@
 #include "snake_game.h"
-#include "terminal.h"
+#include "../io/terminal.h"
 
 #include <chrono>
 #include <thread>
 #include <ctime>
 
 SnakeGame::SnakeGame(std::shared_ptr<GameState> gamestate) : Level(gamestate), rng(time(nullptr)),
+	snake(gamestate->get_window_size().second/2+1, gamestate->get_window_size().first/2),
 	rows_dist(2,gamestate->get_window_size().first-1), cols_dist(2,gamestate->get_window_size().second-1)
 {
-	snake.set_position(gamestate->get_window_size().second/2, gamestate->get_window_size().first/2);
     fruit.set_position(cols_dist(rng), rows_dist(rng));
 	current_time = std::chrono::system_clock::now();//time_point variable
 }
@@ -33,31 +33,38 @@ void SnakeGame::draw(char c)
 	//when we reach a new frame in the game, undraw the snake, update its position
 	//and then redraw it. This way we don't have to clear the entire screen.
 	if (current_time_now - current_time > frame_rate){
-		snake.undraw();
+		snake.undraw_last();
 		snake.move();
+		snake.draw();
 		if(snake.has_fruit(fruit))
 		{
-			fruit.set_position(cols_dist(rng), rows_dist(rng));
+			auto pos = new_fruit_position();
+			fruit.set_position(pos.first, pos.second);
+			snake.grow();
 		}
-		snake.draw();
 		fruit.draw();
 		current_time = current_time_now;
 
 	}
 
-	if (snake.crash_boundary(size.second, size.first))
+	if (snake.crash_boundary(size.second, size.first) || snake.crash_self())
 	{
 		dirty = true;
-		snake.set_position(size.second/2, size.first/2);
+		snake = Snake(size.second/2+1, size.first/2);
 	 	gamestate->set_current_level(CurrentLevel::TITLE_SCREEN);
 	}
+}
+
+std::pair<int,int> SnakeGame::new_fruit_position()
+{
+	return {cols_dist(rng), rows_dist(rng)};
 }
 
 //print boundary
 void SnakeGame::boundary(){
 	auto& term = Terminal::instance();
 	term.clear();
-    auto size = term.get_size();
+    auto size = gamestate->get_window_size();
 	term.set_text_color(TextColor::GREEN);
 	term.move_to(1,1);
 

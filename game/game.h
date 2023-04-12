@@ -2,9 +2,9 @@
 
 #include <memory>
 #include <vector>
-#include "level.h"
+#include "../levels/level.h"
 #include "gamestate.h"
-#include "snake_game.h"
+#include "../levels/snake_game.h"
 
 class Game
 {

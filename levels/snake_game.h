@@ -1,7 +1,7 @@
 #pragma once
 #include "level.h"
-#include "snake.h"
-#include "fruit.h"
+#include "../models/snake.h"
+#include "../models/fruit.h"
 #include <chrono>
 #include <random>
 
@@ -16,8 +16,9 @@ public:
     void draw(char c) override;
 private:
     void boundary();
+    std::pair<int,int> new_fruit_position();
     std::chrono::time_point<std::chrono::system_clock> current_time;
-    std::chrono::duration<double> frame_rate = std::chrono::milliseconds(200);
+    std::chrono::duration<double> frame_rate = std::chrono::milliseconds(100);
     Snake snake;
     Fruit fruit;
     std::mt19937 rng;

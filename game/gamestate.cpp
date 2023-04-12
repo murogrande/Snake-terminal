@@ -1,5 +1,5 @@
 #include "gamestate.h"
-#include "terminal.h"
+#include "../io/terminal.h"
 
 void GameState::set_window_size(std::pair<int,int> rows_cols)
 {

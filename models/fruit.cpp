@@ -1,5 +1,5 @@
 #include "fruit.h"
-#include "terminal.h"
+#include "../io/terminal.h"
 
 
 Fruit::Fruit()
@@ -27,5 +27,5 @@ void Fruit::draw()
     auto& term = Terminal::instance();
 	term.set_text_color(TextColor::BLUE);
     term.move_to(y,x);
-	term.print("F");
+	term.print("o");
 }
