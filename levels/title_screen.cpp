@@ -60,7 +60,7 @@ void TitleScreen::draw(char c)
         term.move_to(5, (size.second - line.length())/2);
         term.print(line);
         
-        line = "q=quit, s=start";
+        line = "q=quit, s=start, i=up, j=left, l=right, k=down";
         term.move_to(size.first-1, 2);
         term.print(line);
         
