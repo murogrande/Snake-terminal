@@ -60,7 +60,11 @@ void TitleScreen::draw(char c)
         term.move_to(5, (size.second - line.length())/2);
         term.print(line);
         
-        line = "q=quit, s=start, i=up, j=left, l=right, k=down";
+        line = "mauro.mendizabal-pico@pasqal.com";
+        term.move_to(6, (size.second - line.length())/2);
+        term.print(line);        
+        
+        line = "q=quit, s=start, i,j,k,l=move";
         term.move_to(size.first-1, 2);
         term.print(line);
         
