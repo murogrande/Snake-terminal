@@ -56,7 +56,7 @@ void TitleScreen::draw(char c)
         term.move_to(4, (size.second - line.length())/2);
         term.print(line);
         
-        line = "Anton Quelle (anton.quelle@pasqal.com)";
+        line = "anton.quelle@pasqal.com";
         term.move_to(5, (size.second - line.length())/2);
         term.print(line);
         
@@ -65,7 +65,7 @@ void TitleScreen::draw(char c)
         term.print(line);
         
         line = "\x1b[36mo     \x1b[37mX\x1b[32mpasqalpasqal\x1b[37m";
-        term.move_to(11, size.second/2-10);
+        term.move_to(std::min(11,size.first-2), size.second/2-10);
         term.print(line);    
         dirty = false;
     }

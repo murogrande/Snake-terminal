@@ -23,7 +23,8 @@ void SnakeGame::draw(char c)
 	//this prevents flickering of the screen
 	if(dirty)
 	{
-		boundary();
+		draw_boundary();
+		print_score();
 		dirty = false;
 	}
 
@@ -42,6 +43,8 @@ void SnakeGame::draw(char c)
 			auto pos = new_fruit_position();
 			fruit.set_position(pos.first, pos.second);
 			snake.grow();
+			score++;
+			print_score();
 		}
 		fruit.draw();
 		current_time = current_time_now;
@@ -51,6 +54,7 @@ void SnakeGame::draw(char c)
 	if (snake.crash_boundary(size.second, size.first) || snake.crash_self())
 	{
 		dirty = true;
+		score = 0;
 		snake = Snake(size.second/2+1, size.first/2);
 		auto pos = new_fruit_position();
 		fruit.set_position(pos.first, pos.second);
@@ -89,35 +93,48 @@ std::pair<int,int> SnakeGame::new_fruit_position()
 	return {new_fruit_index%(screen_size.second - 2)+2, new_fruit_index/(screen_size.second - 2)+2};
 }
 
+void SnakeGame::print_score()
+{
+	auto& term = Terminal::instance();
+    auto size = gamestate->get_window_size();
+	term.move_to(size.first, 7);
+	term.set_text_color(TextColor::WHITE);
+	term.print(std::to_string(score));
+}
+
 //print boundary
-void SnakeGame::boundary(){
+void SnakeGame::draw_boundary(){
 	auto& term = Terminal::instance();
 	term.clear();
     auto size = gamestate->get_window_size();
-	term.set_text_color(TextColor::GREEN);
-	term.move_to(1,1);
-
-	for(int i = 0; i < size.second; ++i)
-	{
-		term.print("-");//prints a row of '-'
-	}
 
 	//print bottom bounding row
 	term.move_to(size.first, 1);
+	term.set_text_color(TextColor::WHITE);
+	term.print("score:");
+	term.set_text_color(TextColor::GREEN);
+	for(int i = 7; i < size.second; ++i)
+	{
+		term.print("-");
+	}
+
+	//print top bounding row
+	term.move_to(1,1);
 	for(int i = 0; i < size.second; ++i)
 	{
-		term.print("-");//prints a row of '-'
+		term.print("-");
 	}
-		//print left bounding row
+
+	//print left bounding row
 	for(int i = 2; i < size.first; ++i)
 	{
 		term.move_to(i, 1);
-		term.print("|");//prints a column of '|'
+		term.print("|");
 	}
-		//print right bounding row
+	//print right bounding row
 	for(int i = 2; i < size.first; ++i)
 	{
 		term.move_to(i, size.second);
-		term.print("|");//prints a column of '|'
+		term.print("|");
 	}
 }

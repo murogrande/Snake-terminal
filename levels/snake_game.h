@@ -15,10 +15,12 @@ public:
     std::pair<int,int> get_window_size();
     void draw(char c) override;
 private:
-    void boundary();
+    void draw_boundary();
+    void print_score();
     std::pair<int,int> new_fruit_position();
     std::chrono::time_point<std::chrono::system_clock> current_time;
     std::chrono::duration<double> frame_rate = std::chrono::milliseconds(100);
+    int score = 0;
     Snake snake;
     Fruit fruit;
     std::mt19937 rng;
